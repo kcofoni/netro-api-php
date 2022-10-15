@@ -1,0 +1,6 @@
+{
+    "require": {
+        "lib-curl": "^7.64",
+        "guzzlehttp/guzzle": "^7.5"
+    }
+}
