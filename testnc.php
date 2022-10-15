@@ -11,14 +11,16 @@ if ($controllerKey == '' || $sensorKey == '') {
 	echo 'Les variables d\'environnement NPA_CTRL et NPA_SENS doivent être renseignées avant de lancer ce programme' . "\n";
 	exit;
 }
+
 $verbose = false;
 $action = '';
 $moisture = 10;
 $zone = '';
 $duration = 30; // 30 mn pas défaut
+$nb_of_days = 2; // 2 jours par défaut
 $start_time = '';
 $delay = 0;
-$cfg = getOpt('va:z:d:s:e:m:');
+$cfg = getOpt('va:z:d:s:e:m:p:');
 if (array_key_exists('v', $cfg)) {
     $verbose = true;
 }
@@ -34,6 +36,8 @@ if (array_key_exists('e', $cfg))
     $delay = $cfg['e'];
 if (array_key_exists('m', $cfg))
     $moisture = $cfg['m'];
+if (array_key_exists('p', $cfg))
+    $nb_of_days = $cfg['p'];
 
 
 if ($verbose == true) {
@@ -44,54 +48,60 @@ if ($verbose == true) {
     echo 'delay : ' . $delay . " \n";
 }
 
-// création du controleur et du capteur
-$nc = new netroController($controllerKey);
-$nc->loadInfo();
-$nc->loadMoistures();
-$nc->loadSchedules();
+try {
+    // création du controleur et du capteur
+    $nc = new netroController($controllerKey);
+    $nc->loadInfo();
+    $nc->loadMoistures();
+    $nc->loadSchedules();
 
-$ns = new netroSensor($sensorKey);
-$ns->loadSensorData();
+    $ns = new netroSensor($sensorKey);
+    $ns->loadSensorData();
 
-// réalisation de l'action demandée
-switch($action){
-    case 'enable':
-        echo 'activation du controleur' . "\n";
-        $nc->enable();
-        break;
-    case 'disable':
-        echo 'désactivation du controleur' . "\n";
-        $nc->disable();
-        break;
-    case 'begin':
-        echo 'démarrage de l\'arrosage' . "\n";
-        $nc->startWatering($duration, array("$zone"), $delay, $start_time);
-        sleep(5);
-        break;
-    case 'startzone':
-        echo 'démarrage de l\'arrosage d\'une zone' . "\n";
-        $nc->active_zones[$zone]->startWatering($duration);
-        sleep(5);
-        break;
-    case 'moisture':
-        echo 'récupération de la moisture d\'une zone' . "\n";
-        echo "moisture de la zone $zone : " . $nc->active_zones[$zone]->getMoisture()["moisture"] . " % \n";
-        break;
-    case 'nowater':
-        echo "arrêter l'arrosage dans les 48h" . "\n";
-        $nc->noWater(2);
-        break;
-    case 'setmoisture':
-        echo "appliquer une moisture de $moisture % à la zone $zone" . "\n";
-        $nc->setMoisture($moisture, array("$zone"));
-        break;
-    case 'end':
-        echo 'arrêt de l\'arrosage' . "\n";
-        $nc->stopWatering();
-        sleep(5);
-        break;
-    case '':
-        echo 'aucune action demandée' . "\n";
+    // réalisation de l'action demandée
+    switch($action){
+        case 'enable':
+            echo 'activation du controleur' . "\n";
+            $nc->enable();
+            break;
+        case 'disable':
+            echo 'désactivation du controleur' . "\n";
+            $nc->disable();
+            break;
+        case 'begin':
+            echo 'démarrage de l\'arrosage' . "\n";
+            $nc->startWatering($duration, array("$zone"), $delay, $start_time);
+            sleep(5);
+            break;
+        case 'startzone':
+            echo 'démarrage de l\'arrosage d\'une zone' . "\n";
+            $nc->active_zones[$zone]->startWatering($duration);
+            sleep(5);
+            break;
+        case 'moisture':
+            echo 'récupération de la moisture d\'une zone' . "\n";
+            echo "moisture de la zone $zone : " . $nc->active_zones[$zone]->getMoisture()["moisture"] . " % \n";
+            break;
+        case 'nowater':
+            echo "empêcher l'arrosage dans les " . $nb_of_days . " prochains jours" . "\n";
+            $nc->noWater($nb_of_days);
+            break;
+        case 'setmoisture':
+            echo "appliquer une moisture de $moisture % à la zone $zone" . "\n";
+            $nc->setMoisture($moisture, array("$zone"));
+            break;
+        case 'end':
+            echo 'arrêt de l\'arrosage' . "\n";
+            $nc->stopWatering();
+            sleep(5);
+            break;
+        case '':
+            echo 'aucune action demandée' . "\n";
+    }
+}
+catch (Exception $ex) {
+    echo 'une erreur s\'est produite : ' . $ex . "\n";
+    exit;
 }
 
 try {
@@ -159,6 +169,6 @@ try {
     }
 }
 catch (Exception $ex) {
-    echo 'une erreur s\'est produite : ' . $ex->getMessage();
+    echo 'une erreur s\'est produite [' . $ex->getCode() . '] : ' . $ex->getMessage() . "\n";
 }
 ?>
