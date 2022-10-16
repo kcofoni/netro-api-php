@@ -263,7 +263,7 @@ class netroFunction {
 
     public static function setStatus($key, $status) {
         $client = new GuzzleHttp\Client(['base_uri' => self::NETRO_BASE_URL]);
-        $client->request('POST', self::NETRO_POST_STATUS, [
+        $response = $client->request('POST', self::NETRO_POST_STATUS, [
             'form_params' => [
                 'key' => $key,
                 'status' => $status

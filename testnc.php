@@ -24,14 +24,14 @@ $cfg = getOpt('hva:z:d:s:e:m:p:');
 if (array_key_exists('h', $cfg)) {
     echo "usage : \033[1m" . basename(__FILE__) . " -h -v -a <action> -z <numéro de zone> -d <durée> -s <heure de départ> -e <délai> -m <humidité> -p <nombre de jours>\033[0m\n";
     echo "pour avoir un statut général des équipements : \033[1m" . basename(__FILE__) . "\033[0m\n";
-    echo "pour activer le contrôleur : \033[1m" . basename(__FILE__) . "-a enable\033[0m\n";
-    echo "pour désactiver le contrôleur : \033[1m" . basename(__FILE__) . "-a disable\033[0m\n";
-    echo "pour lancer l'arrosage : \033[1m" . basename(__FILE__) . "-a begin [-z <numéro de zone>] [-e <délai avant démarrage>] [-s <heure de départ (hh:mm)>]\033[0m\n";
-    echo "pour lancer l'arrosage d'une zone : \033[1m" . basename(__FILE__) . "-a startzone -z <numéro de zone> [-d <durée>]\033[0m\n";
-    echo "pour récupérer les données d'humidité d'une zone : \033[1m" . basename(__FILE__) . "-a moisture -z <numéro de zone>\033[0m\n";
-    echo "pour empêcher l'arrosage pendant plusieurs jours : \033[1m" . basename(__FILE__) . "-a nowater [-p <nombre de jours>]\033[0m\n";
-    echo "pour appliquer une valeur d'humdité à une zone : \033[1m" . basename(__FILE__) . "-a setmoisture -z <numéro de zone>\033[0m\n";
-    echo "pour arrêter l'arrosage : \033[1m" . basename(__FILE__) . "-a end\033[0m\n";
+    echo "pour activer le contrôleur : \033[1m" . basename(__FILE__) . " -a enable\033[0m\n";
+    echo "pour désactiver le contrôleur : \033[1m" . basename(__FILE__) . " -a disable\033[0m\n";
+    echo "pour lancer l'arrosage : \033[1m" . basename(__FILE__) . " -a begin [-z <numéro de zone>] [-e <délai avant démarrage>] [-s <heure de départ GMT (hh:mm)>]\033[0m\n";
+    echo "pour lancer l'arrosage d'une zone : \033[1m" . basename(__FILE__) . " -a startzone -z <numéro de zone> [-d <durée>]\033[0m\n";
+    echo "pour récupérer les données d'humidité d'une zone : \033[1m" . basename(__FILE__) . " -a moisture -z <numéro de zone>\033[0m\n";
+    echo "pour empêcher l'arrosage pendant plusieurs jours : \033[1m" . basename(__FILE__) . " -a nowater [-p <nombre de jours>]\033[0m\n";
+    echo "pour appliquer une valeur d'humdité à une zone : \033[1m" . basename(__FILE__) . " -a setmoisture -m <humidité%> -z <numéro de zone>\033[0m\n";
+    echo "pour arrêter l'arrosage : \033[1m" . basename(__FILE__) . " -a end\033[0m\n";
     echo "\n";
     exit;
 }
