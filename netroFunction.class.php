@@ -35,22 +35,21 @@ class netroFunction {
     const NETRO_POST_STOPWATER = 'stop_water.json';
     const NETRO_POST_NOWATER = 'no_water.json';
     const NETRO_POST_STATUS = 'set_status.json';
-	const NETRO_GET_EVENTS = 'events.json';
+    const NETRO_GET_EVENTS = 'events.json';
 
     const NETRO_STATUS_ENABLE = 1;
     const NETRO_STATUS_DISABLE = 0;
     const NETRO_STATUS_STANDBY = "STANDBY";
     const NETRO_STATUS_WATERING = "WATERING";
-	const NETRO_SCHEDULE_EXECUTED = "EXECUTED";
-	const NETRO_SCHEDULE_EXECUTING = "EXECUTING";
-	const NETRO_SCHEDULE_VALID = "VALID";
+    const NETRO_SCHEDULE_EXECUTED = "EXECUTED";
+    const NETRO_SCHEDULE_EXECUTING = "EXECUTING";
+    const NETRO_SCHEDULE_VALID = "VALID";
     const NETRO_ERROR = "ERROR";
     const NETRO_OK = "OK";    
-	const NETRO_EVENT_DEVICEOFFLINE = 1;
-	const NETRO_EVENT_DEVICEONLINE = 2;
-	const NETRO_EVENT_SCHEDULESTART = 3;
-	const NETRO_EVENT_SCHEDULEEND = 4;
-
+    const NETRO_EVENT_DEVICEOFFLINE = 1;
+    const NETRO_EVENT_DEVICEONLINE = 2;
+    const NETRO_EVENT_SCHEDULESTART = 3;
+    const NETRO_EVENT_SCHEDULEEND = 4;
 
     const DEBUG_MODE = false;
 
