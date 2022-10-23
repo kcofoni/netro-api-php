@@ -1,0 +1,6 @@
+*.log
+vendor
+.DS_Store
+*sublime*
+composer.lock
+
