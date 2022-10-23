@@ -1,7 +1,10 @@
 #!/usr/bin/php
 <?php
+use NetroPublicAPI\netroController;
+use NetroPublicAPI\netroSensor;
 
-require_once dirname(__FILE__) . '/netroControler.class.php';
+
+require_once dirname(__FILE__) . '/netroController.class.php';
 
 const DEBUG_MODE = false; 
 
