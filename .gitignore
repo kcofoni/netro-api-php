@@ -3,4 +3,5 @@ vendor
 .DS_Store
 *sublime*
 composer.lock
-
+samples/
+composer.phar

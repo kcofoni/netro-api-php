@@ -73,6 +73,7 @@ try {
     $nc->loadSchedules();
 
     $ns = new netroSensor($sensorKey);
+    $ns->loadInfo();
     $ns->loadSensorData();
 
     // réalisation de l'action demandée
@@ -140,6 +141,12 @@ try {
 
     echo "\n";
     echo "propriétés du capteur : \n";
+    echo 'name : ' . $ns->name . "\n";
+    echo 'status : ' . $ns->status . "\n";
+    echo 'version : ' . $ns->version . "\n";
+    echo 'sw_version : ' . $ns->sw_version . "\n";
+    echo 'last active time : ' . $ns->last_active_time . "\n";
+    echo 'le capteur est ' . ($ns->active_flag ? 'actif' : 'inactif') . "\n";
     echo 'time : ' . $ns->time . "\n";
     echo 'local_date : ' . $ns->local_date . "\n";
     echo 'local_time : ' . $ns->local_time . "\n";
