@@ -3,10 +3,13 @@
 use NetroPublicAPI\netroController;
 use NetroPublicAPI\netroSensor;
 
+use function NetroPublicAPI\init;
 
 require_once dirname(__FILE__) . '/netroController.class.php';
 
 const DEBUG_MODE = false; 
+const SIMU_NETRO_URL = 'http://vmtest:9080/';
+const PROD_NETRO_URL = 'https://api.netrohome.com/npa/v1/';
 
 $controllerKey = getenv('NPA_CTRL');
 $sensorKey = getenv('NPA_SENS');
@@ -14,6 +17,8 @@ if ($controllerKey == '' || $sensorKey == '') {
 	echo 'Les variables d\'environnement NPA_CTRL et NPA_SENS doivent être renseignées avant de lancer ce programme' . "\n";
 	exit;
 }
+
+init(PROD_NETRO_URL);
 
 $verbose = false;
 $action = '';
@@ -162,6 +167,7 @@ try {
     echo 'status : ' . $nc->status . "\n";
     echo 'version : ' . $nc->version . "\n";
     echo 'sw_version : ' . $nc->sw_version . "\n";
+    echo 'battery level : ' . (empty($nc->battery_level) ? 'non applicable pour ce contrôleur' : $nc->battery_level . '%') . "\n";
 
     echo 'number of zones : ' . $nc->zone_number . "\n";
     echo 'last active time : ' . $nc->last_active_time . "\n";
