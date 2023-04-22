@@ -87,7 +87,7 @@ class netroSensor {
 }
 
 class netroZone {
-    const DEBUG_MODE = true;
+    const DEBUG_MODE = false;
 
     private $_key;
     public $id;

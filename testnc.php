@@ -18,7 +18,7 @@ if ($controllerKey == '' || $sensorKey == '') {
 	exit;
 }
 
-init(PROD_NETRO_URL);
+init(SIMU_NETRO_URL);
 
 $verbose = false;
 $action = '';
